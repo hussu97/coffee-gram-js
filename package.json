@@ -11,9 +11,13 @@
     "url": "git+https://github.com/hussu97/tent-out.git"
   },
   "author": "Hussain Abbasi",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/hussu97/tent-out/issues"
   },
-  "homepage": "https://github.com/hussu97/tent-out#readme"
+  "homepage": "https://github.com/hussu97/tent-out#readme",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2"
+  }
 }
