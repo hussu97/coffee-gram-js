@@ -1,10 +1,24 @@
 <% include partials/header %>
-<h1>Create a new campsite</h1>
-<form action="/campgrounds" method="post">
-  <input type="text" name="name" placeholder="Campsite name">
-  <input type="text" name="image" placeholder="image url">
-  <button type="submit">Submit</button>
-  <a href="/campgrounds">Back</a>
-</form>
+
+<div class="container">
+  <h1 id="formTitle">Create a new campsite</h1>
+  <form action="/campgrounds" method="post">
+    <div class="rows">
+      <div class="form-group">
+        <label for="campSiteName">Email address</label>
+        <input type="text" class="form-control" id="campSiteName" name="name" aria-describedby="campHelp" placeholder="Enter Camp site name">
+      </div>
+      <div class="form-group">
+        <label for="imageURL">Image URL</label>
+        <input type="text" class="form-control" id="imageURL" name="image" aria-describedby="urlHelp" placeholder="Enter image url of Camp site">
+        <small id="urlHelp" class="form-text text-muted">Image url must be in a certain format.</small>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-outline-success btn-block">Submit</button>
+      </div>
+      <a href="/campgrounds">Back</a>
+    </div>
+  </form>
+</div>
 
 <% include partials/footer %>

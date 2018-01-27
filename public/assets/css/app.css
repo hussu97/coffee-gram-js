@@ -1,0 +1,23 @@
+.figure-caption{
+    text-align: center;
+}
+.rows {
+    width:50%;
+    margin: 30px auto;
+}
+img:hover {
+    transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+}
+#formTitle {
+  text-align: center;
+}
+img {
+    transition: transform 0.2s;
+    -webkit-transition: -webkit-transform 0.2s;
+    -moz-transition: -moz-transform 0.2s;
+    -o-transition: -o-transform 0.2s;
+}

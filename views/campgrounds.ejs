@@ -7,11 +7,13 @@
       <a class="btn btn-primary btn-large" href="/campgrounds/new">Add new Camp Site</a>
     </div>
   </div>
-  <div class="row">
+  <div class="row" >
     <% campgrounds.forEach((campground)=>{%>
-      <div class="col-md-3 col-sm-6">
-          <img src="<%= campground.image %>" class="img-thumbnail">
-          <h4><%= campground.name %></h4>
+      <div class="col-md-3 col-sm-6 ">
+        <figure class="figure">
+          <img src="<%= campground.image %>" class="figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+          <figcaption class="figure-caption"><h4><%= campground.name %></h4></figcaption>
+        </figure>
       </div>
     <%});%>
 
