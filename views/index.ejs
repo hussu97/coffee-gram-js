@@ -2,20 +2,20 @@
 <div class="container">
   <div class="jumbotron">
     <div class="container">
-      <h1>Welcome to TentOut</h1>
-      <p>The best site to check out one-of-a-kind camp sites</p>
-      <a class="btn btn-primary btn-large" href="/index/new">Add new Camp Site</a>
+      <h1>Welcome to CoffeeGram</h1>
+      <p>The only website that allows you to show affection towards your favourite cup of coffee</p>
+      <a class="btn btn-primary btn-large" href="/coffees/new">Add new Camp Site</a>
     </div>
   </div>
   <div class="row" >
-    <% campgrounds.forEach((campground)=>{%>
+    <% coffees.forEach((coffee)=>{%>
       <div class="col-md-3 col-sm-6 ">
         <figure class="figure">
-          <img src="<%= campground.image %>" class="indexImage figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
-          <figcaption class="figure-caption"><h4><%= campground.name %></h4></figcaption>
+          <img src="<%= coffee.image %>" class="indexImage figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
+          <figcaption class="figure-caption"><h4><%= coffee.name %></h4></figcaption>
         </figure>
         <p>
-          <a href="/index/<%= campground._id %>" class="btn btn-primary">More Info</a>
+          <a href="/coffees/<%= coffee._id %>" class="btn btn-primary">More Info</a>
         </p>
       </div>
     <%});%>
