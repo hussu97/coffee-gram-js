@@ -1,0 +1,42 @@
+<% include ../partials/header %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <p class="lead">CoffeeGram</p>
+      <div class="list-group">
+        <li class="list-group-item active">nulla export minim</li>
+        <li class="list-group-item">nulla export minim</li>
+        <li class="list-group-item">nulla export minim</li>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <figure class="figure">
+        <img src="<%= coffee.image %>" class="indexImage figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
+        <figcaption class="figure-caption">
+          <h4 class="float-right">14.00AED</h4>
+          <h4><a><%= coffee.name %></a></h4>
+          <p><%= coffee.description %></p>
+        </figcaption>
+      </figure>
+      <div class="well">
+        <div class="text-right">
+          <a class="btn btn-primary" href="/coffees/<%= coffee._id %>/comments/new">Leave a Review</a>
+        </div>
+        <hr>
+        <% coffee.comments.forEach((comment)=>{ %>
+          <div class="row">
+            <div class="col-md-12">
+              <strong><%= comment.author %></strong>
+              <span class="float-right">10 days ago</span>
+            </div>
+            <p>
+              <%= comment.text %>
+            </p>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include ../partials/footer %>

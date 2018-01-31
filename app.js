@@ -4,20 +4,10 @@ const express    = require('express'),
       port       = 8080,
       favicon    = require('serve-favicon'),
       path       = require('path'),
-      Coffee     = require('./models/coffee');
+      Coffee     = require('./models/coffee'),
+      Comment    = require('./models/comment'),
+      seedDB     = require('./seeds'),
       mongoose   = require('mongoose');
-
-var coffees = [
-  {name: "New Wark", image:"https://source.unsplash.com/5dehYy5BkRw"},
-  {name: "Holy Cow", image:"https://source.unsplash.com/26f8ZvTWV4E"},
-  {name: "WOWOWO", image:"https://source.unsplash.com/oT4hTqWoZ6M"},
-  {name: "New Wark", image:"https://source.unsplash.com/5dehYy5BkRw"},
-  {name: "Holy Cow", image:"https://source.unsplash.com/26f8ZvTWV4E"},
-  {name: "WOWOWO", image:"https://source.unsplash.com/TwIXMn7iNnw"},
-  {name: "New Wark", image:"https://source.unsplash.com/5dehYy5BkRw"},
-  {name: "Holy Cow", image:"https://source.unsplash.com/26f8ZvTWV4E"},
-  {name: "WOWOWO", image:"https://source.unsplash.com/TwIXMn7iNnw"}
-];
 
 app.use(express.static(path.join(__dirname,'public')));
 app.use(bodyParser.json());
@@ -25,6 +15,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(favicon(path.join(__dirname, 'public','images', 'favicon.ico')));
 
 app.set('view engine', 'ejs');
+
+seedDB();
 
 app.get('/', (req, res) => {
   res.render("landing");
@@ -34,23 +26,32 @@ app.get('/coffees', (req, res) => {
     if(err){
       console.log(err);
     } else{
-      res.render("index",{coffees:allCoffee});
+      res.render("coffee/index",{coffees:allCoffee});
     }
   });
 });
 app.get('/coffees/new', (req, res) => {
   //Showing the form that the user can fill out
-  res.render("new");
+  res.render("coffee/new");
 });
 app.get('/coffees/:id', (req, res) => {
+  Coffee.findById(req.params.id).populate('comments').exec((err,foundCoffee) =>{
+    if(err){
+      console.log(err);
+    } else{
+      res.render("coffee/show",{coffee:foundCoffee});
+    }
+  });
+
+});
+app.get('/coffees/:id/comments/new', (req, res) => {
   Coffee.findById(req.params.id,(err,foundCoffee) =>{
     if(err){
       console.log(err);
     } else{
-      res.render("show",{coffee:foundCoffee});
+      res.render("comment/new",{coffee:foundCoffee});
     }
   });
-
 });
 
 app.post('/coffees', (req, res) => {
@@ -73,6 +74,28 @@ app.post('/coffees', (req, res) => {
   //redirect back to coffees page
   res.redirect('/coffees');
 });
+app.post('/coffees/:id/comments', (req, res) => {
+  console.log("entered comment POST");
+  Coffee.findById(req.params.id,(err,foundCoffee) =>{
+    if(err){
+      console.log(err);
+      res.redirect('/coffees');
+    } else{
+      console.log("coffee found");
+      Comment.create(req.body.comment, (err,comment) =>{
+        if(err){
+          console.log(err);
+        } else{
+          foundCoffee.comments.push(comment._id);
+          foundCoffee.save();
+          console.log("comment pushed");
+          res.redirect(`/coffees/${foundCoffee._id}`);
+        }
+      }
+    )}
+  });
+});
+
 
 app.listen(port, () => {
   console.log(`Server Starts on ${port}`);

@@ -1,0 +1,23 @@
+<% include ../partials/header %>
+
+<div class="container">
+  <h1 id="formTitle">Add New comment to <%= coffee.name %></h1>
+  <form action="/coffees/<%= coffee._id %>/comments" method="post">
+    <div class="rows">
+      <div class="form-group">
+        <label for="authorName">Author</label>
+        <input type="text" class="form-control" id="authorName" name="comment[author]" aria-describedby="authorHelp" placeholder="Enter your name">
+      </div>
+      <div class="form-group">
+        <label for="commentText">Comment</label>
+        <textarea class="form-control" id="commentText" rows="5" name="comment[text]"></textarea>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-outline-success btn-block">Submit</button>
+      </div>
+      <a href="/coffees">Back</a>
+    </div>
+  </form>
+</div>
+
+<% include ../partials/footer %>
