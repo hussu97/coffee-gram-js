@@ -1,11 +1,18 @@
 var mongoose = require('mongoose');
-var Comment 
+var Comment
 mongoose.connect("mongodb://localhost/coffee_gram");
 
 var coffeeSchema = new mongoose.Schema({
   name: String,
   image: String,
   description: String,
+  author: {
+    id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
+    username: String
+  },
   comments: [
       {
          type: mongoose.Schema.Types.ObjectId,
