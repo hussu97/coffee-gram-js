@@ -7,16 +7,18 @@
       <a class="btn btn-primary btn-large" href="/coffees/new">Add new Camp Site</a>
     </div>
   </div>
-  <div class="row" >
+  <div class="row index" >
     <% coffees.forEach((coffee)=>{%>
       <div class="col-md-3 col-sm-6 ">
         <figure class="figure">
           <img src="<%= coffee.image %>" class="indexImage figure-img img-fluid rounded" alt="A generic square placeholder image with rounded corners in a figure.">
-          <figcaption class="figure-caption"><h4><%= coffee.name %></h4></figcaption>
+          <figcaption class="figure-caption">
+            <h4><%= coffee.name %></h4>
+            <p>
+              <a href="/coffees/<%= coffee._id %>" class="btn btn-primary">More Info</a>
+            </p>
+          </figcaption>
         </figure>
-        <p>
-          <a href="/coffees/<%= coffee._id %>" class="btn btn-primary">More Info</a>
-        </p>
       </div>
     <%});%>
 

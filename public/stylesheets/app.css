@@ -5,19 +5,29 @@
     width:50%;
     margin: 30px auto;
 }
-img:hover.indexImage{
+.index img:hover.indexImage{
     transform: scale(1.1);
     -ms-transform: scale(1.1);
     -webkit-transform: scale(1.1);
     -moz-transform: scale(1.1);
     -o-transform: scale(1.1);
 }
-#formTitle {
-  text-align: center;
-}
-img.indexImage{
+.index img.indexImage{
     transition: transform 0.2s;
     -webkit-transition: -webkit-transform 0.2s;
     -moz-transition: -moz-transform 0.2s;
     -o-transition: -o-transform 0.2s;
+}
+#formTitle {
+  text-align: center;
+}
+#show .figure-caption {
+    padding: 9px;
+    text-align: left;
+}
+.figure img{
+    width: 100%;
+}
+.figure{
+    padding: 0;
 }
