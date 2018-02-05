@@ -16,7 +16,14 @@
           <h4 class="float-right">14.00AED</h4>
           <h4><a><%= coffee.name %></a></h4>
           <p><%= coffee.description %></p>
-          <p><em>Submitted by <%= coffee.author.username %></em></p>
+          <% if(currentUser && coffee.author.id.equals(currentUser._id)){ %>
+            <a class="btn btn-warning" href="/coffees/<%= coffee._id %>/edit">Edit</a>
+            <form class="deleteCoffeeBtn" action="/coffees/<%= coffee._id %>?_method=DELETE" method="post">
+              <button class="btn btn-danger">Delete</button>
+            </form>
+          <% } else { %>
+            <p><em>Submitted by <%= coffee.author.username %></em></p>
+          <% }%>
         </figcaption>
       </figure>
       <div class="well">
@@ -30,9 +37,17 @@
               <strong><%= comment.author.username %></strong>
               <span class="float-right">10 days ago</span>
             </div>
-            <p>
-              <%= comment.text %>
-            </p>
+            <div class="col-md-12">
+              <p><%= comment.text %></p>
+              <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                <a class="btn btn-warning" href="/coffees/<%= coffee._id %>/comments/<%= comment._id %>/edit">
+                  Edit
+                </a>
+                <form class="deleteCoffeeBtn" action="/coffees/<%= coffee._id %>/comments/<%= comment._id %>?_method=DELETE" method="post">
+                  <button class="btn btn-danger">Delete</button>
+                </form>
+              <% } %>
+            </div>
           </div>
         <% }); %>
       </div>

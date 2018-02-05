@@ -1,10 +1,11 @@
 const express = require('express'),
       router  = express.Router({mergeParams: true}),
       Coffee = require('../models/coffee'),
-      Comment = require('../models/comment');
+      Comment = require('../models/comment'),
+      middleware = require('../middleware');
 
 //add new comment
-router.get('/new', isLoggedIn, (req, res) => {
+router.get('/new', middleware.isLoggedIn, (req, res) => {
   Coffee.findById(req.params.id,(err,foundCoffee) =>{
     if(err){
       console.log(err);
@@ -15,7 +16,7 @@ router.get('/new', isLoggedIn, (req, res) => {
 });
 
 //adding comment
-router.post('/', isLoggedIn, (req, res) => {
+router.post('/', middleware.isLoggedIn, (req, res) => {
   console.log("entered comment POST");
   Coffee.findById(req.params.id,(err,foundCoffee) =>{
     if(err){
@@ -43,11 +44,38 @@ router.post('/', isLoggedIn, (req, res) => {
   });
 });
 
-function isLoggedIn(req,res,next){
-  if(req.isAuthenticated()){
-    return next();
-  }
-  res.redirect('/login');
-}
+//editing a comment
+router.get('/:commentID/edit', middleware.checkCommentAuthorization, (req, res) => {
+  Comment.findById(req.params.commentID, (err,foundComment) =>{
+    if(err) {
+      console.log(err);
+    } else {
+        res.render('comment/edit', {coffeeID: req.params.id, comment: foundComment});
+    }
+  })
+});
+
+//update a comment
+router.put('/:commentID', middleware.checkCommentAuthorization, (req, res) => {
+    Comment.findByIdAndUpdate(req.params.commentID, req.body.comment, (err,updatedComment) => {
+      if(err) {
+        console.log(err);
+        res.redirect('back');
+      } else {
+        res.redirect('/coffees/'+req.params.id);
+      }
+    })
+});
+
+//delete comment
+router.delete('/:commentID', middleware.checkCommentAuthorization, (req, res) => {
+  Comment.findByIdAndRemove(req.params.commentID, (err) => {
+    if(err) {
+      res.redirect('back');
+    } else {
+      res.redirect('/coffees/' + req.params.id);
+    }
+  });
+});
 
 module.exports = router;

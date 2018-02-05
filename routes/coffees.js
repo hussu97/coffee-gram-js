@@ -1,7 +1,7 @@
-const express = require('express'),
-      router  = express.Router(),
-      Coffee = require('../models/coffee'),
-      Comment = require('../models/coffee');
+const express    = require('express'),
+      router     = express.Router(),
+      Coffee     = require('../models/coffee'),
+      middleware = require('../middleware');
 
 //page showing all coffees
 router.get('/', (req, res) => {
@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 });
 
 //adding new coffee
-router.post('/', isLoggedIn, (req, res) => {
+router.post('/', middleware.isLoggedIn, (req, res) => {
   //A form is created to allow user to add a new coffee
   Coffee.create(
     {
@@ -41,7 +41,7 @@ router.post('/', isLoggedIn, (req, res) => {
 });
 
 //Showing the add coffe form that the user can fill out
-router.get('/new', isLoggedIn, (req, res) => {
+router.get('/new', middleware.isLoggedIn, (req, res) => {
   res.render("coffee/new");
 });
 
@@ -56,11 +56,35 @@ router.get('/:id', (req, res) => {
   });
 });
 
-function isLoggedIn(req,res,next){
-  if(req.isAuthenticated()){
-    return next();
-  }
-  res.redirect('/login');
-}
+//edit campground
+router.get('/:id/edit', middleware.checkCoffeeAuthorization, (req, res) => {
+  Coffee.findById(req.params.id, (err,coffee)=>{
+      res.render('coffee/edit', {coffee: coffee});
+  });
+});
+
+//update route
+router.put('/:id', middleware.checkCoffeeAuthorization, (req, res) => {
+  Coffee.findByIdAndUpdate(req.params.id, req.body.coffee, (err,updatedCoffee)=> {
+    if(err) {
+      console.log(err);
+      res.redirect('/coffees');
+    } else {
+      res.redirect('/coffees/'+req.params.id);
+    }
+  })
+});
+
+//destroy campground
+router.delete('/:id', middleware.checkCoffeeAuthorization, (req, res) => {
+    Coffee.findByIdAndRemove(req.params.id,(err)=>{
+      if(err){
+        console.log(err);
+        res.redirect('/coffees');
+      } else {
+        res.redirect('/coffees');
+      }
+    })
+});
 
 module.exports = router;

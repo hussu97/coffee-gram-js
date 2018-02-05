@@ -1,0 +1,19 @@
+<% include ../partials/header %>
+
+<div class="container">
+  <h1 id="formTitle">Edit Comment</h1>
+  <form action="/coffees/<%= coffeeID %>/comments/<%= comment._id %>?_method=PUT" method="post">
+    <div class="rows">
+      <div class="form-group">
+        <label for="commentText">Comment</label>
+        <textarea class="form-control" id="commentText" rows="5" name="comment[text]"><%= comment.text %></textarea>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-outline-success btn-block">Submit</button>
+      </div>
+      <a href="/coffees">Back</a>
+    </div>
+  </form>
+</div>
+
+<% include ../partials/footer %>
