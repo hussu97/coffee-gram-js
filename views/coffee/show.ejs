@@ -13,7 +13,7 @@
       <figure class="figure" id="show">
         <img src="<%= coffee.image %>" class="indexImage figure-img img-fluid rounded img-responsive" alt="A generic square placeholder image with rounded corners in a figure.">
         <figcaption class="figure-caption">
-          <h4 class="float-right">14.00AED</h4>
+          <h4 class="float-right"><%= coffee.price %>AED</h4>
           <h4><a><%= coffee.name %></a></h4>
           <p><%= coffee.description %></p>
           <% if(currentUser && coffee.author.id.equals(currentUser._id)){ %>

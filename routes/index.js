@@ -20,11 +20,13 @@ router.post('/register', (req, res) => {
   var newUser = new User({username:req.body.username});
   User.register(newUser,req.body.password,(err,user)=>{
     if(err){
+      req.flash('error',err.message);
       console.log(err);
-      return res.render('register');
+      return res.redirect('/register');
     }
     passport.authenticate("local")(req,res,()=>{
-      res.redirect('coffees');
+      req.flash('success','Welcome to CoffeeGram '+user.username);
+      res.redirect('/coffees');
     })
   })
 });
@@ -45,14 +47,8 @@ router.post('/login',passport.authenticate("local",
 //logging the user out
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/');
+  req.flash('success','logged you out');
+  res.redirect('/coffees');
 });
-
-function isLoggedIn(req,res,next){
-  if(req.isAuthenticated()){
-    return next();
-  }
-  res.redirect('/login');
-}
 
 module.exports = router;

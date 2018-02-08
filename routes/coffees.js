@@ -20,6 +20,7 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
   Coffee.create(
     {
       name:        req.body.name,
+      price:       req.body.price,
       image:       req.body.image,
       description: req.body.description,
       author: {
@@ -30,17 +31,15 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
       if(err){
         console.log(err);
       } else{
-        console.log("Coffee created!");
+        req.flash('success','coffee successfully added');
+        res.redirect('/coffees');
         console.log(newCoffee);
       }
     }
   )
-
-  //redirect back to coffees page
-  res.redirect('/coffees');
 });
 
-//Showing the add coffe form that the user can fill out
+//Showing the add coffee form that the user can fill out
 router.get('/new', middleware.isLoggedIn, (req, res) => {
   res.render("coffee/new");
 });
@@ -48,7 +47,8 @@ router.get('/new', middleware.isLoggedIn, (req, res) => {
 //finding a particular coffee
 router.get('/:id', (req, res) => {
   Coffee.findById(req.params.id).populate('comments').exec((err,foundCoffee) =>{
-    if(err){
+    if(err||!foundCoffee){
+      req.flash('error','coffee does not exist!');
       console.log(err);
     } else{
       res.render("coffee/show",{coffee:foundCoffee});
@@ -82,6 +82,7 @@ router.delete('/:id', middleware.checkCoffeeAuthorization, (req, res) => {
         console.log(err);
         res.redirect('/coffees');
       } else {
+        req.flash('success','coffee successfully deleted');
         res.redirect('/coffees');
       }
     })

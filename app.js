@@ -6,6 +6,7 @@ const express        = require('express'),
       path           = require('path'),
       passport       = require('passport'),
       LocalStrategy  = require('passport-local'),
+      flash          = require('connect-flash'),
       Coffee         = require('./models/coffee'),
       Comment        = require('./models/comment'),
       User           = require('./models/user'),
@@ -18,6 +19,7 @@ const coffeeRoutes = require('./routes/coffees'),
       commentRoutes = require('./routes/comments'),
       indexRoutes = require('./routes/index');
 
+app.use(flash());
 app.use(express.static(path.join(__dirname,'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -37,6 +39,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 app.use((req,res,next)=>{
     res.locals.currentUser = req.user;
+    res.locals.error       = req.flash("error");
+    res.locals.success     = req.flash("success");
     next();
 });
 

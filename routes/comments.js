@@ -36,7 +36,7 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
           foundCoffee.comments.push(comment._id);
           foundCoffee.save();
           console.log(comment);
-          console.log("comment pushed");
+          req.flash('success','comment successfully added');
           res.redirect(`/coffees/${foundCoffee._id}`);
         }
       }
@@ -73,6 +73,7 @@ router.delete('/:commentID', middleware.checkCommentAuthorization, (req, res) =>
     if(err) {
       res.redirect('back');
     } else {
+      req.flash('success','comment successfully deleted');
       res.redirect('/coffees/' + req.params.id);
     }
   });
