@@ -1,21 +1,21 @@
 {
-  "name": "tent-out",
+  "name": "coffee-gram",
   "version": "1.0.0",
-  "description": "A fully functional camping site made using node.js",
+  "description": "A fully functional coffee site made using node.js",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hussu97/tent-out.git"
+    "url": "git+https://github.com/hussu97/coffee-gram.git"
   },
   "author": "Hussain Abbasi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hussu97/tent-out/issues"
+    "url": "https://github.com/hussu97/coffee-gram/issues"
   },
-  "homepage": "https://github.com/hussu97/tent-out#readme",
+  "homepage": "https://github.com/hussu97/coffee-gram#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
     "connect-flash": "^0.1.1",
