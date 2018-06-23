@@ -1,32 +1,32 @@
 <% include ../partials/header %>
 
-<div class="container">
-  <h1 id="formTitle">Edit <%= coffee.name %></h1>
-  <form action="/coffees/<%= coffee._id %>?_method=PUT" method="post">
-    <div class="rows">
-      <div class="form-group">
-        <label for="coffeeName">Coffee name</label>
-        <input type="text" class="form-control" id="coffeeName" name="coffee[name]" aria-describedby="coffeeHelp" value="<%= coffee.name %>">
+  <div class="container">
+    <h1 id="formTitle">Edit <%= coffee.name %></h1>
+    <form action="/coffees/<%= coffee._id %>?_method=PUT" method="post">
+      <div class="rows">
+        <div class="form-group">
+          <label for="coffeeName">Coffee name</label>
+          <input type="text" class="form-control" id="coffeeName" name="coffee[name]" aria-describedby="coffeeHelp" value="<%= coffee.name %>">
+        </div>
+        <div class="form-group">
+          <label for="coffeePrice">Coffee price</label>
+          <input type="number" class="form-control" id="coffeePrice" name="coffee[price]" aria-describedby="coffeeHelp" value="<%= coffee.price %>" min="1.00" step="0.25">
+        </div>
+        <div class="form-group">
+          <label for="imageURL">Image URL</label>
+          <input type="text" class="form-control" id="imageURL" name="coffee[image]" aria-describedby="urlHelp" value="<%= coffee.image %>">
+          <small id="urlHelp" class="form-text text-muted">Image url must be in a certain format.</small>
+        </div>
+        <div class="form-group">
+          <label for="coffeeDescription">Describe your coffee</label>
+          <textarea class="form-control" id="coffeeDescription" rows="5" name="coffee[description]"><%= coffee.description %></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-lg btn-outline-success btn-block">Submit</button>
+        </div>
+        <a href="/coffees">Back</a>
       </div>
-      <div class="form-group">
-        <label for="coffeePrice">Coffee price</label>
-        <input type="number" class="form-control" id="coffeePrice" name="coffee[price]" aria-describedby="coffeeHelp" value="<%= coffee.price %>" min="1.00" step="0.25">
-      </div>
-      <div class="form-group">
-        <label for="imageURL">Image URL</label>
-        <input type="text" class="form-control" id="imageURL" name="coffee[image]" aria-describedby="urlHelp" value="<%= coffee.image %>">
-        <small id="urlHelp" class="form-text text-muted">Image url must be in a certain format.</small>
-      </div>
-      <div class="form-group">
-        <label for="coffeeDescription">Describe your coffee</label>
-        <textarea class="form-control" id="coffeeDescription" rows="5" name="coffee[description]"><%= coffee.description %></textarea>
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-lg btn-outline-success btn-block">Submit</button>
-      </div>
-      <a href="/coffees">Back</a>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 
-<% include ../partials/footer %>
+  <% include ../partials/footer %>
